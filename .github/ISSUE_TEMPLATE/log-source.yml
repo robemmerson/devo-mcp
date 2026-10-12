@@ -1,0 +1,71 @@
+name: Log source
+description: Add or improve guidance and helpers for a product that sends data to Devo
+title: "Log source: <product>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping the library cover more sources. **Keep your own data out of this issue**:
+        no real events, usernames, host names, IPs, tenant or account ids. Describe field shapes
+        (what `devo_fields` reports) and use placeholders such as `jsmith`, `example.com`, `HOST01`
+        and `203.0.113.10`.
+  - type: input
+    id: product
+    attributes:
+      label: Product and vendor
+      placeholder: Palo Alto Networks NGFW
+    validations:
+      required: true
+  - type: textarea
+    id: tables
+    attributes:
+      label: Devo tables
+      description: One per line. `devo_tables` lists the tables in your domain.
+      placeholder: |
+        firewall.paloalto.traffic
+        firewall.paloalto.threat
+    validations:
+      required: true
+  - type: checkboxes
+    id: wanted
+    attributes:
+      label: What should the server do with it?
+      options:
+        - label: Find a user, IP or host in it during `devo_activity` sweeps
+        - label: Use the right event-time field (not ingestion time)
+        - label: Fix field roles the profiler gets wrong
+        - label: A table guide (what a row is, entity fields, quirks, links to other tables)
+        - label: A batch playbook or detection query
+        - label: A new helper or tool
+  - type: textarea
+    id: fields
+    attributes:
+      label: Key fields
+      description: Name, type and meaning of the fields that matter (user, source/destination IP, host, event time, action, outcome, ids that link records). Shapes only.
+      placeholder: |
+        srcUser    str   user, DOMAIN\jsmith or jsmith@example.com
+        srcIp      ip4   source address
+        receiveTime str  event time, yyyy/MM/dd HH:mm:ss UTC
+    validations:
+      required: true
+  - type: textarea
+    id: knowledge
+    attributes:
+      label: Quirks and know-how
+      description: Duplicates, back-filled events, fields that are blank or overloaded, how it links to other tables, useful LINQ.
+  - type: dropdown
+    id: pr
+    attributes:
+      label: Will you open the pull request?
+      options:
+        - "Yes"
+        - I'd like help
+        - "No"
+  - type: checkboxes
+    id: redacted
+    attributes:
+      label: Data check
+      options:
+        - label: This issue contains no real data from my Devo domain.
+          required: true

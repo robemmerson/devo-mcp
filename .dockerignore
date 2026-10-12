@@ -1,0 +1,13 @@
+.git
+.venv
+.remember
+**/__pycache__
+.pytest_cache
+tests
+scripts
+*.md
+!README.md
+!THIRD_PARTY.md
+!src/devo_mcp/engine/**/*.md
+.env
+*.env

@@ -1,0 +1,19 @@
+services:
+  devo-mcp:
+    image: ghcr.io/robemmerson/devo-mcp:latest
+    # build: .   # or build it from this checkout
+    restart: unless-stopped
+    ports:
+      # Plain HTTP, so only on this machine. To serve other hosts, put a TLS proxy in front.
+      - "127.0.0.1:8000:8000"
+    environment:
+      MCP_API_KEY: ${MCP_API_KEY:?set MCP_API_KEY (openssl rand -hex 32)}
+      DEVO_TOKEN: ${DEVO_TOKEN:?set DEVO_TOKEN}
+      DEVO_REGION: ${DEVO_REGION:-eu}
+      DEVO_CACHE_KEY: ${DEVO_CACHE_KEY:-}
+      DEVO_MCP_ALLOW_WRITES: ${DEVO_MCP_ALLOW_WRITES:-false}
+    volumes:
+      - devo-mcp-data:/data
+
+volumes:
+  devo-mcp-data:
