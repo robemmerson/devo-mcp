@@ -78,9 +78,15 @@ Writes are disabled unless `DEVO_MCP_ALLOW_WRITES=true`. When they're enabled:
    exact request, the alert's title and status or the board's widget diff, and a
    `confirmation_token`.
 2. `confirm=true` works only with the token from a preview of **the same parameters** (for
-   boards, the same file content). Tokens expire after about 30–60 minutes. So a client can't
-   skip the preview, and can't change the change after the user approved it.
+   boards, the same file content). Each token confirms one change and expires after about 30–60
+   minutes. So a client can't skip the preview, or send something other than what was previewed.
 3. The tools never change alert status, priority or definitions.
+
+The token proves that a preview came first, not that a person approved it: a client that can
+call the tools can also confirm. Human approval comes from your MCP client's tool-permission
+prompt, so keep writes on "ask" there (the write tools are marked as writes, and the board push
+and delete as destructive). Every client with the `MCP_API_KEY` has the same access, so enable
+writes only on a server whose clients you trust to make changes in Devo.
 
 ## Configuration
 
