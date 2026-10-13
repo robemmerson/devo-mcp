@@ -433,8 +433,9 @@ def build_server(settings: Settings | None = None) -> MCPServer:
             linq: Annotated[str, Field(description="LINQ: from <table> where … select … as … group [every 1h] by … "
                                                    "select <aggregations>")],
             start: Start = "1h", end: End = "now",
-            limit: Annotated[int, Field(ge=0, description="max rows (0 = no limit: careful). Inline results are "
-                                                          "also cut to the response budget")] = 200,
+            limit: Annotated[int, Field(ge=0, description="max rows per window (0 = no limit: careful): with chunk "
+                                                          "or auto_split each window has its own limit. Inline "
+                                                          "results are also cut to the response budget")] = 200,
             format: Annotated[Literal["json", "csv", "table"],
                               Field(description="inline result format; csv is the most compact")] = "json",
             sort: Annotated[str | None, Field(description="client-side sort: field or -field, comma-separated "
@@ -490,7 +491,7 @@ def build_server(settings: Settings | None = None) -> MCPServer:
                             Field(description="values for {name} placeholders in the jobs, e.g. {user: jsmith, from: 7d}")] = None,
             start: Annotated[str, Field(description="default start for jobs without one")] = "1h",
             end: Annotated[str, Field(description="default end")] = "now",
-            limit: Annotated[int, Field(ge=0)] = 10000,
+            limit: Annotated[int, Field(ge=0, description="default max rows per window for jobs without one")] = 10000,
             parallel: Annotated[int, Field(ge=1, le=8)] = 4,
             tz: Tz = None, timeout: Timeout = 600, background: Background = False, ctx: Context = None) -> dict:
         """Run many queries in parallel from a spec; each job writes <name>.jsonl and <name>.log in the
