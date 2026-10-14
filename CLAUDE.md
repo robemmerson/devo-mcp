@@ -47,6 +47,10 @@ vendored into `src/devo_mcp/engine/` and run as a subprocess per tool call.
   tables 7). `Settings()` defaults `cache_warmup` off so tests never start it; `from_env` defaults it on.
 - **HTTP** is stateless streamable HTTP mounted at `/mcp`, behind `BearerAuth`, with an open
   `/healthz`. The CLI refuses HTTP without `MCP_API_KEY` unless `DEVO_MCP_ALLOW_NO_AUTH=true`.
+- **`MCP_TOOL_ERRORS_AS_TEXT`** (off by default) adds `ToolErrorsAsText` (`tool_errors.py`), server
+  middleware that rewrites every `isError: true` `tools/call` result as `isError: false` with
+  `ERROR: <message>`, because Foundry Agent Service aborts the run on `isError`. Tools raise
+  `ToolError` as usual; don't special-case the mode in a tool.
 
 ## Commands
 

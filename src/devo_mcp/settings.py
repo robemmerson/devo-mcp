@@ -77,6 +77,7 @@ class Settings:
     cache_check_hours: int = 24
     cache_parallel: int = 6
     cache_warmup_delay: float = 10.0
+    tool_errors_as_text: bool = False
 
     def __post_init__(self):
         if self.soft_timeout < 0:
@@ -106,4 +107,5 @@ class Settings:
             cache_profile=cache_profile(env.get("DEVO_MCP_CACHE_PROFILE", "all")),
             cache_check_hours=env_int("DEVO_MCP_CACHE_CHECK_HOURS", 24, env),
             cache_parallel=max(1, env_int("DEVO_MCP_CACHE_PARALLEL", 6, env)),
+            tool_errors_as_text=env_bool("MCP_TOOL_ERRORS_AS_TEXT", env=env),
         )
