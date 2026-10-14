@@ -21,6 +21,7 @@ from .cache_warmer import CacheWarmer
 from .engine_runner import ENGINE_DIR, EXIT_MEANING, GRACE, EngineResult, EngineRunner, describe
 from .guide import INSTRUCTIONS
 from .settings import Settings, token_warning
+from .tool_errors import ToolErrorsAsText
 from .workspace import Workspace, WorkspaceError
 
 READ = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=True)
@@ -89,6 +90,8 @@ def build_server(settings: Settings | None = None) -> MCPServer:
         instructions=INSTRUCTIONS,
         version=__version__,
     )
+    if settings.tool_errors_as_text:
+        mcp.middleware.append(ToolErrorsAsText(mcp))
 
     # ---------------------------------------------------------------- helpers
 

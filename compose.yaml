@@ -12,6 +12,8 @@ services:
       DEVO_REGION: ${DEVO_REGION:-eu}
       DEVO_CACHE_KEY: ${DEVO_CACHE_KEY:-}
       DEVO_MCP_ALLOW_WRITES: ${DEVO_MCP_ALLOW_WRITES:-false}
+      # true only for clients that abort on isError results (Microsoft Foundry Agent Service)
+      MCP_TOOL_ERRORS_AS_TEXT: ${MCP_TOOL_ERRORS_AS_TEXT:-false}
     volumes:
       - devo-mcp-data:/data
 

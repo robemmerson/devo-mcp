@@ -112,6 +112,7 @@ writes only on a server whose clients you trust to make changes in Devo.
 | `DEVO_MCP_CACHE_PARALLEL` | `6` | Tables profiled at once during warm-up |
 | `DEVO_CACHE_MAX_AGE_DAYS` | – | Caps every cache TTL (engine setting) |
 | `DEVO_MCP_ALLOWED_HOSTS` | – | Comma-separated `Host` values. Turns on DNS-rebinding protection for HTTP |
+| `MCP_TOOL_ERRORS_AS_TEXT` | `false` | Return tool errors as `isError: false` results whose text is `ERROR: <message>`. For clients that end the run on `isError: true` (Microsoft Foundry Agent Service), so the model sees the error and retries. Each one is logged as a warning |
 | `DEVO_MCP_ALLOW_NO_AUTH` | `false` | Serve HTTP without `MCP_API_KEY`. Use only behind an authenticating proxy |
 | `DEVO_MCP_TRANSPORT` / `_HOST` / `_PORT` / `_PATH` | `stdio` / `127.0.0.1` / `8000` / `/mcp` | CLI defaults |
 
